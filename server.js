@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const userRoute  = require("./routes/userRoute.js");
 const cors = require("cors");
+const multer  = require("multer")
 
 
 mongoose.connect(

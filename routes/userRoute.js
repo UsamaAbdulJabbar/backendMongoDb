@@ -71,11 +71,35 @@ router.post("/", (req, res) => {
 });
 
 //=====Put data from mongo db========
-router.put("/:id", (req, res) => { });
+router.put("/:id", (req, res) => {
+    let id = req.params.id;
+    const {userName,email,password}= req.body;
+    userModel.findOneAndUpdate({email:id},{
+        $set:{
+            
+                userName,
+                email,
+                password,            
+        }
+    }).then((result)=>{
+    
+        res.send("User data updated").status(200)
+        
+    }).catch((err)=>{
+        res.send(err).status(400);
+    })
 
-
+})
 //=====Delete data from mongo db========
-router.delete("/:id", (req, res) => { });
+router.delete("/:id", (req, res) => { 
+    let id = req.params.id;
+    userModel.remove({email: id}).then((res)=>{
+        res.send("user deleted sucessfully").status(200);
+        
+    }).catch((err)=>{
+        res.send(err).status(400);
+    })
+});
 
 
 module.exports = router;
